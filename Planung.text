@@ -9,3 +9,31 @@ Planung
 6. Darstellung der Daten
 7. Terminplaner
 8. UML-Diagramm
+
+
+
+DROP TABLE `termine`;
+DROP TABLE `patienten`;
+
+
+CREATE TABLE `patienten` (
+	`id` BIGINT NOT NULL AUTO_INCREMENT,
+	`vorname` VARCHAR(256) DEFAULT '',
+	`nachname` VARCHAR(256) DEFAULT '',
+	`postleitzahl` VARCHAR(100),
+	`strasse` VARCHAR(256),
+	`hausnummer` VARCHAR(10),
+	`ort` VARCHAR(60),
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `termine` (
+    id INT,
+    parent_id BIGINT,
+    datum DATE,
+    details varchar(500),
+    INDEX par_ind (parent_id),
+    FOREIGN KEY (parent_id)
+        REFERENCES patienten(id)
+        ON DELETE SET NULL
+)
